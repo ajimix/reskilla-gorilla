@@ -8,10 +8,21 @@
 
 ## Routes
 
-### `/jobs.json`
+### Jobs
+
+#### GET `/jobs.json`
 
 Returns all jobs in the table with all information from each job.
 
-### `/skills.json`
+### POST `/jobs/search.json`
+
+Allows to search for jobs using POST parameters:
+
+- job_title (string)
+- skills (array of strings)
+
+### Skills
+
+#### GET `/skills.json`
 
 Returns all skills in the table.
