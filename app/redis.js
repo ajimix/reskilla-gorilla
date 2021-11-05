@@ -1,5 +1,5 @@
 /**
- * Redis module
+ * Redis module with singleton redis.client
  * redis.connect();
  * Then it can be called like: redis.client.get(...)
  */
