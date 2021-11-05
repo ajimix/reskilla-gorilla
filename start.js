@@ -4,7 +4,7 @@ const app = rootRequire('app/init.js');
 app.start();
 
 // Require all routes
-rootRequire('routes/*');
+rootRequire('app/routes/*');
 
 process.on('uncaughtException', (e) => {
   console.error(`uncaughtException: [${e.code}] ${e.message}`, { stack: e.stack });

@@ -1,5 +1,5 @@
 const { rootRequire } = require('./utils.js');
-const redis = require('./../config/redis.js');
+const redis = require('./redis.js');
 
 /**
  * Global helpers or initializations
