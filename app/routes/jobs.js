@@ -9,6 +9,18 @@ router.get('/jobs.json', (ctx, next) => {
   });
 });
 
+router.get('/job/:job_id.json', (ctx, next) => {
+  return loadJobs().then((jobs) => {
+    const jobId = ctx.params.job_id;
+    const job = jobs.find((job) => job.id === jobId);
+    if (undefined === job) {
+      ctx.throw(404, 'Job not found');
+    }
+    ctx.body = job;
+    return next();
+  });
+});
+
 router.post('/jobs/search.json', (ctx, next) => {
   const data = ctx.request.body;
 

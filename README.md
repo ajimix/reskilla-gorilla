@@ -14,6 +14,10 @@
 
 Returns all jobs in the table with all information from each job.
 
+#### GET `/jobs/job_id.json`
+
+Returns the job matching the ID.
+
 ### POST `/jobs/search.json`
 
 Allows to search for jobs using POST parameters:
