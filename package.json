@@ -1,0 +1,36 @@
+{
+  "name": "reskilla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start.js",
+    "redis": "redis-server /usr/local/etc/redis.conf",
+    "dev": "concurrently --kill-others \"npm run redis\" \"npm run dev-start-nodemon\"",
+    "dev-start-nodemon": "NODE_ENV=development BLUEBIRD_WARNINGS=0 ./node_modules/nodemon/bin/nodemon.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^10.1.1",
+    "ioredis": "^4.28.0",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-cache-control": "^2.0.0",
+    "koa-conditional-get": "^3.0.0",
+    "koa-etag": "^4.0.0",
+    "koa-json": "^2.0.2",
+    "koa-redis": "^4.0.1",
+    "koa-send": "^5.0.1",
+    "koa-session": "^6.2.0",
+    "koa-www-force": "^1.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "nodemon": "^2.0.14",
+    "prettier": "^2.4.1"
+  }
+}
