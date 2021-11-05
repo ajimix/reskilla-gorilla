@@ -20,7 +20,7 @@ router.post(
 
     ctx.jobs = [];
     return loadJobs().then((jobs) => {
-      const filterJobTitle = data.job_title || '~$%_e23'; // We add some garbage so nothing matches
+      const filterJobTitle = (data.job_title && data.job_title.toLowerCase()) || '~$%_e23'; // We add some garbage so nothing matches
       const filterSkills = data.skills || [];
 
       // Filter the returning jobs matching criteria
@@ -29,16 +29,16 @@ router.post(
 
         if (
           // Job title
-          job.title.indexOf(filterJobTitle) > -1 ||
+          job.title.toLowerCase().indexOf(filterJobTitle) > -1 ||
           // Alternative names
-          (job.alternative_names !== undefined && job.alternative_names.indexOf(filterJobTitle) > -1)
+          (job.alternative_names !== undefined && job.alternative_names.toLowerCase().indexOf(filterJobTitle) > -1)
         ) {
           matches = true;
         }
         if (matches === true) return true;
 
         filterSkills.forEach((skill) => {
-          if ((job.skills + '').indexOf(skill) > -1) {
+          if ((job.skills.toLowerCase() + '').indexOf(skill.toLowerCase()) > -1) {
             matches = true;
           }
         });
