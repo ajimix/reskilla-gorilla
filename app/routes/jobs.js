@@ -35,7 +35,7 @@ router.post(
         ) {
           matches = true;
         }
-        if (matches === true) return;
+        if (matches === true) return true;
 
         filterSkills.forEach((skill) => {
           if ((job.skills + '').indexOf(skill) > -1) {
