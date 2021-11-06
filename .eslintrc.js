@@ -18,5 +18,6 @@ module.exports = {
   },
   globals: {
     rootRequire: true,
+    rootPath: true,
   },
 };

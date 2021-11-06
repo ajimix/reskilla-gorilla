@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const pug = require('pug');
 
 /**
  * Function to replace require and always require from root so we don't have to deal with paths.
@@ -37,7 +38,35 @@ function filesInFolderSync(folder) {
     );
 }
 
+/**
+ * Renders the template with Pug
+ * @param  {string} viewName View name without extension
+ * @param  {object} data
+ * @return {string} The HTML code
+ */
+function renderTemplate(viewName, data) {
+  const { isDevelopment } = rootRequire('config/config.js');
+  const pugOptions = {
+    filters: {
+      assetURL: (text) => {
+        if (true === isDevelopment) {
+          text += `?${Math.ceil(Math.random() * 10000)}`;
+        }
+        return `/assets/${text}`;
+      },
+      isDevelopment: () => isDevelopment,
+    },
+    pretty: isDevelopment,
+  };
+  const compiledFunction = pug.compileFile(`${global.rootPath}/app/views/${viewName}.pug`, pugOptions);
+
+  data = Object.assign({}, data, pugOptions.filters);
+
+  return compiledFunction(data);
+}
+
 module.exports = {
   rootRequire,
   filesInFolderSync,
+  renderTemplate,
 };
