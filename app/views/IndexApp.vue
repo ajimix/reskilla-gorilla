@@ -34,8 +34,32 @@
       <div v-if="currentStep === 3">
         <h3>These are your future possibilities!</h3>
         <ul v-for="job in jobMatches" :key="job.id">
-          <li>{{ job.title }}</li>
+          <li>
+            {{ job.title }}
+            <button class="bg-green-800" @click="step3Click" :data-job-id="job.id">Choose this Path</button>
+          </li>
         </ul>
+      </div>
+
+      <div v-if="currentStep === 4">
+        <h3>Welcome future {{ selectedJob.title }}!</h3>
+        <p>
+          {{ selectedJob.title }} is a great future job, with {{ selectedJob.future_demand }} chances of not getting
+          obsolete in 2030 and a {{ selectedJob.salary_range }} average salary potential. With a {{ jobMatch }}% match
+          you will quickly become a great {{ selectedJob.title }} to save your future!
+        </p>
+        <h3>Skills School</h3>
+        <p>
+          {{ selectedJob.title }} requires some additional skills which you are currently missing.
+          {{ missingSkillsSchoolText }}. You can quickly gain those skills if you start as soon as possible with your
+          reeskilling.
+        </p>
+        <p>Find below some online courses which will help you start your new career path.</p>
+        <!-- <ul v-for="course in courses" :key="course.id">
+          <li>
+            {{ course.title }}
+          </li>
+        </ul> -->
       </div>
     </form>
   </div>
@@ -53,7 +77,16 @@ export default {
       currentJob: null,
       currentSkills: new Set(),
       jobMatches: [],
+      selectedJob: null,
     };
+  },
+  computed: {
+    jobMatch() {
+      return 123;
+    },
+    missingSkillsSchoolText() {
+      return 'Cooking and gardening';
+    },
   },
   methods: {
     jobSelected(job) {
@@ -81,6 +114,11 @@ export default {
     },
     step2Click() {
       this.currentStep = 3;
+    },
+    step3Click(event) {
+      const jobId = event.target.dataset.jobId;
+      this.selectedJob = this.jobMatches.find((x) => x.id === jobId);
+      this.currentStep = 4;
     },
   },
 };
