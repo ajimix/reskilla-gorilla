@@ -31,6 +31,7 @@ router.post('/jobs/search.json', (ctx, next) => {
 
     // Filter the returning jobs matching criteria
     ctx.body = jobs.filter((job) => {
+      if (job.title === undefined) return false; // Empty job titles are garbage in the table
       let matches = false;
 
       if (
