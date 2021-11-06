@@ -7,7 +7,10 @@ router.get(
     ctx.jobs = [];
     return loadJobs().then((jobs) => {
       const skills = new Set();
-      jobs.forEach((job) => job.skills.forEach((skill) => skills.add(skill.toLowerCase())));
+      jobs.forEach((job) => {
+        if (undefined === job.skills) return;
+        job.skills.forEach((skill) => skills.add(skill.toLowerCase()));
+      });
       ctx.skills = Array.from(skills);
       return next();
     });
