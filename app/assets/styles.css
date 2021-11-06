@@ -5,3 +5,13 @@
 [v-cloak] {
   display: none !important;
 }
+
+body {
+  background-color: #fafff2;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Fruktur';
+}

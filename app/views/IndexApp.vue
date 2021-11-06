@@ -2,7 +2,7 @@
   <div v-cloak>
     <form @submit.prevent>
       <div v-if="[1, 2].indexOf(currentStep) > -1">
-        <h3>1. Tell us about your current job</h3>
+        <h3 class="text-5xl mt-20 text-center">1. Tell us about your current job</h3>
         <label>
           Current job title
           <job-search @job-selected="jobSelected" />
