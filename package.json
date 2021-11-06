@@ -13,6 +13,12 @@
     "dev-start-nodemon": "NODE_ENV=development BLUEBIRD_WARNINGS=0 ./node_modules/nodemon/bin/nodemon.js"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "nodemonConfig": {
+    "ignore": [
+      ".parcel-cache/*",
+      "dist/*"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
