@@ -55,3 +55,29 @@ router.post('/jobs/search.json', (ctx, next) => {
     return next();
   });
 });
+
+router.post('/jobs/match.json', (ctx, next) => {
+  const data = ctx.request.body;
+
+  ctx.jobs = [];
+  return loadJobs().then((jobs) => {
+    const filterSkills = data.skills || [];
+
+    // Filter the returning jobs matching criteria
+    ctx.body = jobs.filter((job) => {
+      // Empty job titles are garbage in the table
+      // We only care about is_future jobs
+      if (job.title === undefined || job.is_future !== true) return false;
+      let matches = false;
+
+      filterSkills.forEach((skill) => {
+        if ((job.skills + '').toLowerCase().indexOf(skill.toLowerCase()) > -1) {
+          matches = true;
+        }
+      });
+
+      return matches;
+    });
+    return next();
+  });
+});

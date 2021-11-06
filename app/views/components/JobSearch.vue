@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" @keyup="jobTitleInputKeyDown" class="border-2" />
+    <input type="text" @keyup="jobTitleInputKeyDown" class="border-2" ref="searchInput" />
     <ul v-for="job in jobs" :key="job.id">
       <li @click="jobTitleClick" class="cursor-pointer" :data-id="job.id">{{ job.title }}</li>
     </ul>
@@ -33,6 +33,7 @@ export default {
         'jobSelected',
         this.jobs.find((x) => x.id === jobId)
       );
+      this.$refs.searchInput.value = event.target.textContent;
     },
   },
 };

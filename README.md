@@ -20,11 +20,17 @@ Returns all jobs in the table with all information from each job.
 
 Returns the job matching the ID.
 
-### POST `/jobs/search.json`
+#### POST `/jobs/search.json`
 
 Allows to search for jobs using POST parameters:
 
 - job_title (string)
+- skills (array of strings)
+
+#### POST `/jobs/match.json`
+
+Matches future jobs based on skills:
+
 - skills (array of strings)
 
 ### Skills

@@ -11,7 +11,7 @@ router.get(
         if (undefined === job.skills) return;
         job.skills.forEach((skill) => skills.add(skill.toLowerCase()));
       });
-      ctx.skills = Array.from(skills);
+      ctx.skills = [...skills];
       return next();
     });
   },

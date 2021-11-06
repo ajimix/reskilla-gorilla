@@ -1,12 +1,14 @@
 <template>
   <div v-cloak>
     <form @submit.prevent>
-      <h3>1. Tell us about your current job</h3>
-      <label>
-        Current job title
-        <job-search @job-selected="jobSelected" />
-      </label>
-      <button class="bg-green-800" @click="step1Click">Give me luck!</button>
+      <div v-if="[1, 2].indexOf(currentStep) > -1">
+        <h3>1. Tell us about your current job</h3>
+        <label>
+          Current job title
+          <job-search @job-selected="jobSelected" />
+        </label>
+        <button class="bg-green-800" @click="step1Click">Give me luck!</button>
+      </div>
 
       <div v-if="currentStep === 2">
         <ul v-for="index in currentJob.future_demand" :key="index">
@@ -26,7 +28,14 @@
             <fancy-check @check="skillCheck" :passthrough="skill" />
           </li>
         </ul>
-        <button class="bg-green-800" @click="step2Click">Continue Please!</button>
+        <button class="bg-green-800" @click="step2Click" v-if="currentSkills.size > 0">Continue Please!</button>
+      </div>
+
+      <div v-if="currentStep === 3">
+        <h3>These are your future possibilities!</h3>
+        <ul v-for="job in jobMatches" :key="job.id">
+          <li>{{ job.title }}</li>
+        </ul>
       </div>
     </form>
   </div>
@@ -43,10 +52,8 @@ export default {
       currentStep: 1,
       currentJob: null,
       currentSkills: new Set(),
+      jobMatches: [],
     };
-  },
-  mounted() {
-    // App mounted
   },
   methods: {
     jobSelected(job) {
@@ -61,6 +68,16 @@ export default {
       } else {
         this.currentSkills.delete(skillName);
       }
+      // We load the matches on each skill, so they are ready for when the user clicks to the next step
+      const data = { skills: [...this.currentSkills] };
+      fetch('http://localhost:3000/jobs/match.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => (this.jobMatches = json))
+        .catch(console.error);
     },
     step2Click() {
       this.currentStep = 3;
