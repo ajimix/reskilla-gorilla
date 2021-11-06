@@ -1,17 +1,20 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: 'Fruktur';
+  }
+  body {
+    background-color: #fafff2;
+    @apply font-sans;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
 
 [v-cloak] {
   display: none !important;
-}
-
-body {
-  background-color: #fafff2;
-}
-
-h1,
-h2,
-h3 {
-  font-family: 'Fruktur';
 }
