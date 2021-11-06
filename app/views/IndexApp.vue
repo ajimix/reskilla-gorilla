@@ -81,8 +81,17 @@ export default {
     };
   },
   computed: {
+    /**
+     * The match percentage between the current job and the selected job
+     */
     jobMatch() {
-      return 123;
+      let matchingSkillsCount = 0;
+      this.currentJob.skills.forEach((skill) => {
+        if (this.selectedJob.skills.indexOf(skill) > -1) {
+          matchingSkillsCount++;
+        }
+      });
+      return Math.round((matchingSkillsCount * 100) / this.selectedJob.skills.length);
     },
     missingSkillsSchoolText() {
       return 'Cooking and gardening';

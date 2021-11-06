@@ -1,9 +1,20 @@
 const router = rootRequire('app/router.js');
 const { loadJobs } = rootRequire('app/airtable.js');
 
+/**
+ * Makes the job skills lowercase.
+ * Edits the skills object in place.
+ * @param {object} Job
+ */
+function skillsToLowerCase(job) {
+  if (undefined === job.skills) return;
+  job.skills = job.skills.map((skill) => skill.toLowerCase());
+}
+
 router.get('/jobs.json', (ctx, next) => {
   ctx.jobs = [];
   return loadJobs().then((jobs) => {
+    jobs.forEach(skillsToLowerCase);
     ctx.body = jobs;
     return next();
   });
@@ -16,6 +27,7 @@ router.get('/job/:job_id.json', (ctx, next) => {
     if (undefined === job) {
       ctx.throw(404, 'Job not found');
     }
+    skillsToLowerCase(job);
     ctx.body = job;
     return next();
   });
@@ -30,7 +42,7 @@ router.post('/jobs/search.json', (ctx, next) => {
     const filterSkills = data.skills || [];
 
     // Filter the returning jobs matching criteria
-    ctx.body = jobs.filter((job) => {
+    const matchingJobs = jobs.filter((job) => {
       if (job.title === undefined) return false; // Empty job titles are garbage in the table
       let matches = false;
 
@@ -52,6 +64,8 @@ router.post('/jobs/search.json', (ctx, next) => {
 
       return matches;
     });
+    matchingJobs.forEach(skillsToLowerCase);
+    ctx.body = matchingJobs;
     return next();
   });
 });
