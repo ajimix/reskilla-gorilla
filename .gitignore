@@ -2,3 +2,5 @@
 /public/assets
 /log
 /.vscode
+/dist
+/.parcel-cache

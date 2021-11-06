@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "start.js",
+  "source": "app/views/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node start.js",
+    "start": "parcel",
+    "build": "parcel build",
     "redis": "redis-server /usr/local/etc/redis.conf",
-    "dev": "concurrently --kill-others \"npm run redis\" \"npm run dev-start-nodemon\"",
+    "dev": "concurrently --kill-others \"npm run redis\" \"npm run dev-start-nodemon\" \"npm run start\"",
     "dev-start-nodemon": "NODE_ENV=development BLUEBIRD_WARNINGS=0 ./node_modules/nodemon/bin/nodemon.js"
   },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -26,13 +29,19 @@
     "koa-send": "^5.0.1",
     "koa-session": "^6.2.0",
     "koa-www-force": "^1.0.1",
-    "pug": "^3.0.2"
+    "vue": "^3.2.21"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0",
+    "@parcel/transformer-vue": "^2.0.0",
+    "autoprefixer": "^10.4.0",
     "concurrently": "^6.3.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "nodemon": "^2.0.14",
-    "prettier": "^2.4.1"
+    "parcel": "^2.0.0",
+    "postcss": "^8.3.11",
+    "prettier": "^2.4.1",
+    "tailwindcss": "^2.2.19"
   }
 }
