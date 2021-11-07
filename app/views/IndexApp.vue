@@ -59,7 +59,7 @@
           </div>
         </div>
         <h3 class="text-5xl mt-20">2. And which skills from {{ currentJob.title }} do you master?</h3>
-        <ul class="grid grid-cols-2 gap-16 mt-14">
+        <ul class="grid grid-cols-2 gap-x-16 mt-14">
           <li v-for="skill in currentJob.skills" :key="skill" class="flex justify-between">
             <div class="flex justify-between w-full">
               <span class="text-xl">{{ caps(skill) }}</span>
@@ -121,18 +121,32 @@
         </p>
         <p class="mt-5">You can quickly gain those skills if you start as soon as possible with your reeskilling.</p>
         <p class="mt-5">Find below some online courses which will help you start your new career path.</p>
-        <ul>
+        <ul v-if="Object.keys(skillCourses).length > 0">
           <li v-for="skill in missingSkills" :key="skill">
             <div v-if="skillCourses[skill]">
-              <h4 class="text-3xl mt-10">Courses for {{ caps(skill) }}:</h4>
+              <h4 class="text-3xl mt-10 mb-5">Courses for {{ caps(skill) }}</h4>
               <ul>
-                <li v-for="course in skillCourses[skill]" :key="course.id">
-                  {{ course.title }}
+                <li
+                  v-for="course in skillCourses[skill]"
+                  :key="course.id"
+                  class="rounded-lg mb-5 flex course-item-styled overflow-hidden"
+                >
+                  <img :src="course['image_304x171']" alt="Course image" />
+                  <div class="p-5">
+                    <strong>{{ course.title }}</strong>
+                    <p v-html="course.headline" class="mt-3"></p>
+                    <div class="mt-2">
+                      <a :href="'https://udemy.com' + course.url" target="_blank" title="View course" class="underline"
+                        >View Course</a
+                      >
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
           </li>
         </ul>
+        <div v-else>Loading, please wait...</div>
       </div>
     </form>
   </div>
@@ -235,7 +249,7 @@ export default {
       this.missingSkills.forEach((skill) => {
         fetch(`/api/skills/${encodeURIComponent(skill)}/courses.json`)
           .then((response) => response.json())
-          .then((courses) => (this.skillCourses[skill] = courses))
+          .then((courses) => (this.skillCourses[skill] = courses.slice(0, 5)))
           .catch(console.error);
       });
     },

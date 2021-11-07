@@ -30,6 +30,9 @@
   .skills-learn-styled {
     min-height: 56px;
   }
+  .course-item-styled {
+    background-color: #c9dcd7;
+  }
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .job-offer-skilled {
