@@ -166,10 +166,11 @@
 
       <div v-if="currentStep === 4">
         <h3 class="text-5xl mt-20 text-center">Welcome future {{ selectedJob.title }}!</h3>
-        <p>
-          {{ caps(selectedJob.title) }} is a great future job, with {{ selectedJob.future_demand }} chances of not
-          getting obsolete in 2030 and a {{ selectedJob.salary_range }} average salary potential. With a {{ jobMatch }}%
-          match you will quickly become a great {{ selectedJob.title }} to save your future!
+        <p class="mt-5">
+          {{ caps(selectedJob.title) }} is a great future job, with
+          {{ Math.round((selectedJob.future_demand * 100) / 5) }} chances of not getting obsolete in 2030 and a
+          {{ Math.round((selectedJob.salary_range * 100) / 5) }} average salary potential. With a {{ jobMatch }}% match
+          you will quickly become a great {{ caps(selectedJob.title) }} to save your future!
         </p>
         <h3>Skills School</h3>
         <p>
