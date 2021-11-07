@@ -78,24 +78,26 @@ router.post('/jobs/match.json', (ctx, next) => {
     const filterSkills = data.skills || [];
 
     // Filter the returning jobs matching criteria
-    ctx.body = jobs.filter((job) => {
-      // Empty job titles are garbage in the table
-      // We only care about is_future jobs
-      if (job.title === undefined || job.is_future !== true) return false;
-      let matchesCount = 0;
+    ctx.body = jobs
+      .filter((job) => {
+        // Empty job titles are garbage in the table
+        // We only care about is_future jobs
+        if (job.title === undefined || job.is_future !== true) return false;
+        let matchesCount = 0;
 
-      filterSkills.forEach((filterSkill) => {
-        job.skills.forEach((jobSkill) => {
-          if (jobSkill.toLowerCase() === filterSkill.toLowerCase()) {
-            matchesCount++;
-          }
+        filterSkills.forEach((filterSkill) => {
+          job.skills.forEach((jobSkill) => {
+            if (jobSkill.toLowerCase() === filterSkill.toLowerCase()) {
+              matchesCount++;
+            }
+          });
         });
-      });
 
-      job.match_percent = Math.round((matchesCount * 100) / job.skills.length);
+        job.match_percent = Math.round((matchesCount * 100) / job.skills.length);
 
-      return matchesCount > 0;
-    });
+        return matchesCount > 0;
+      })
+      .sort((a, b) => b.match_percent - a.match_percent);
     return next();
   });
 });
