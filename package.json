@@ -30,9 +30,7 @@
     "koa-json": "^2.0.2",
     "koa-send": "^5.0.1",
     "koa-www-force": "^1.0.1",
-    "vue": "^3.2.21"
-  },
-  "devDependencies": {
+    "vue": "^3.2.21",
     "@parcel/transformer-sass": "^2.0.0",
     "@parcel/transformer-vue": "^2.0.0",
     "autoprefixer": "^10.4.0",
