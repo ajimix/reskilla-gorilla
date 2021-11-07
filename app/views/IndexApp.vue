@@ -22,7 +22,7 @@
               "
               @click="step1Click"
             >
-              Give me luck!
+              Tell me more
             </button>
           </div>
         </div>
@@ -58,7 +58,7 @@
             future looks like.
           </div>
         </div>
-        <h3 class="text-5xl mt-20">2. And which skills from {{ currentJob.title }} do you master?</h3>
+        <h3 class="text-5xl mt-20">2. Select the skills your have</h3>
         <ul class="grid grid-cols-2 gap-x-16 mt-14">
           <li v-for="skill in currentJob.skills" :key="skill" class="flex justify-between">
             <div class="flex justify-between w-full">
@@ -81,13 +81,24 @@
             "
             @click="step2Click"
           >
-            Continue Please!
+            Show me future jobs
           </button>
         </div>
       </div>
 
       <div v-if="currentStep === 3">
-        <h3 class="text-5xl mt-20">These are your future possibilities!</h3>
+        <p class="mt-20">
+          There is
+          <span v-if="currentJob.future_demand < 3"> 95% </span>
+          <span v-else-if="currentJob.future_demand > 3 && currentJob.future_demand < 5"> 65% </span>
+          <span v-else> 23% </span>
+          risk that some part or all of your job will be automated. Here's looking at your future job!
+        </p>
+        <h3 class="text-5xl mt-5">These are your future possibilities!</h3>
+        <p class="mt-5">
+          Here are a number of jobs you can transition into where your current skills will help. Click on the job you're
+          interested in and find out new skills needed. Then see how you can learn those skills over time.
+        </p>
         <ul class="grid grid-cols-2 gap-16 content-start mt-14">
           <li v-for="job in jobMatches" :key="job.id">
             <job-card :job="job" :show-button="true" @job-proceed-click="step3Click" :job-matches="jobMatches" />
@@ -96,7 +107,7 @@
       </div>
 
       <div v-if="currentStep === 4">
-        <h3 class="text-5xl mt-20">Welcome future {{ selectedJob.title }}!</h3>
+        <h3 class="text-5xl mt-20">Hello future {{ selectedJob.title }}</h3>
         <div class="grid grid-cols-2 gap-16 mt-8">
           <div>
             <p class="mt-5">
