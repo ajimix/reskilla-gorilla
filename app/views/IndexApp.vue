@@ -116,16 +116,23 @@
 
         <h3 class="text-5xl mt-20">Skills School</h3>
         <p class="mt-5">
-          {{ caps(selectedJob.title) }} requires some additional skills which you are currently missing.
+          {{ caps(selectedJob.title) }} requires some additional skills which you are currently missing:
           {{ missingSkillsSchoolText }}.
         </p>
         <p class="mt-5">You can quickly gain those skills if you start as soon as possible with your reeskilling.</p>
         <p class="mt-5">Find below some online courses which will help you start your new career path.</p>
-        <!-- <ul v-for="course in courses" :key="course.id">
-          <li>
-            {{ course.title }}
+        <ul>
+          <li v-for="skill in missingSkills" :key="skill">
+            <div v-if="skillCourses[skill]">
+              <h4 class="text-3xl mt-10">Courses for {{ caps(skill) }}:</h4>
+              <ul>
+                <li v-for="course in skillCourses[skill]" :key="course.id">
+                  {{ course.title }}
+                </li>
+              </ul>
+            </div>
           </li>
-        </ul> -->
+        </ul>
       </div>
     </form>
   </div>
@@ -145,6 +152,7 @@ export default {
       currentSkills: new Set(),
       jobMatches: [],
       selectedJob: null,
+      skillCourses: {},
     };
   },
   computed: {
@@ -161,17 +169,26 @@ export default {
       return Math.round((matchingSkillsCount * 100) / this.selectedJob.skills.length);
     },
     missingSkillsSchoolText() {
-      const missingSkills = this.selectedJob.skills.filter((skill) => this.currentJob.skills.indexOf(skill) === -1);
-      let string = missingSkills
-        .map((x) => this.caps(x))
-        .slice(0, missingSkills.length - 1)
-        .join(', ');
+      const missingSkills = this.missingSkills;
+      let string;
 
-      if (missingSkills.length > 1) {
-        string += ` and ${this.caps(missingSkills[missingSkills.length - 1])}`;
+      if (missingSkills.length === 1) {
+        string = this.caps(missingSkills[0]);
+      } else {
+        string = missingSkills
+          .map((x) => this.caps(x))
+          .slice(0, missingSkills.length - 1)
+          .join(', ');
+
+        if (missingSkills.length > 1) {
+          string += ` and ${this.caps(missingSkills[missingSkills.length - 1])}`;
+        }
       }
 
       return string;
+    },
+    missingSkills() {
+      return this.selectedJob.skills.filter((skill) => this.currentJob.skills.indexOf(skill) === -1);
     },
   },
   methods: {
@@ -214,6 +231,13 @@ export default {
     step3Click(job) {
       this.selectedJob = job;
       this.currentStep = 4;
+
+      this.missingSkills.forEach((skill) => {
+        fetch(`/api/skills/${encodeURIComponent(skill)}/courses.json`)
+          .then((response) => response.json())
+          .then((courses) => (this.skillCourses[skill] = courses))
+          .catch(console.error);
+      });
     },
   },
 };

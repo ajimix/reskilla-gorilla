@@ -21,7 +21,13 @@
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^10.1.1",
+    "@parcel/transformer-sass": "^2.0.0",
+    "@parcel/transformer-vue": "^2.0.0",
     "airtable": "^0.11.1",
+    "autoprefixer": "^10.4.0",
+    "concurrently": "^6.3.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-cache-control": "^2.0.0",
@@ -30,17 +36,12 @@
     "koa-json": "^2.0.2",
     "koa-send": "^5.0.1",
     "koa-www-force": "^1.0.1",
-    "vue": "^3.2.21",
-    "@parcel/transformer-sass": "^2.0.0",
-    "@parcel/transformer-vue": "^2.0.0",
-    "autoprefixer": "^10.4.0",
-    "concurrently": "^6.3.0",
-    "eslint": "^8.0.1",
-    "eslint-config-prettier": "^8.3.0",
     "nodemon": "^2.0.14",
     "parcel": "^2.0.0",
     "postcss": "^8.3.11",
     "prettier": "^2.4.1",
-    "tailwindcss": "^2.2.19"
+    "proxycrawl": "^2.4.0",
+    "tailwindcss": "^2.2.19",
+    "vue": "^3.2.21"
   }
 }
