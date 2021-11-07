@@ -117,9 +117,9 @@
         <h3 class="text-5xl mt-20">Skills School</h3>
         <p class="mt-5">
           {{ caps(selectedJob.title) }} requires some additional skills which you are currently missing.
-          {{ missingSkillsSchoolText }}.<br />
-          You can quickly gain those skills if you start as soon as possible with your reeskilling.
+          {{ missingSkillsSchoolText }}.
         </p>
+        <p class="mt-5">You can quickly gain those skills if you start as soon as possible with your reeskilling.</p>
         <p class="mt-5">Find below some online courses which will help you start your new career path.</p>
         <!-- <ul v-for="course in courses" :key="course.id">
           <li>
@@ -161,7 +161,17 @@ export default {
       return Math.round((matchingSkillsCount * 100) / this.selectedJob.skills.length);
     },
     missingSkillsSchoolText() {
-      return 'Cooking and gardening';
+      const missingSkills = this.selectedJob.skills.filter((skill) => this.currentJob.skills.indexOf(skill) === -1);
+      let string = missingSkills
+        .map((x) => this.caps(x))
+        .slice(0, missingSkills.length - 1)
+        .join(', ');
+
+      if (missingSkills.length > 1) {
+        string += ` and ${this.caps(missingSkills[missingSkills.length - 1])}`;
+      }
+
+      return string;
     },
   },
   methods: {
