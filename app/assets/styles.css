@@ -20,6 +20,22 @@
   .job-results-styled {
     background-color: #c9dcd7;
   }
+  .job-offer-skilled {
+    background-color: #708361;
+    background-image: url('../assets/images/job-background.png');
+    background-size: 100% 320px;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+  .skills-learn-styled {
+    min-height: 56px;
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .job-offer-skilled {
+      background-image: url('../assets/images/job-background@2x.png');
+    }
+  }
 }
 
 @tailwind components;

@@ -17,7 +17,7 @@
         :data-id="job.id"
         class="pt-2 text-green-900 hover:text-green-700"
       >
-        {{ job.title }}
+        {{ job.title.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase())) }}
       </li>
     </ul>
   </div>
