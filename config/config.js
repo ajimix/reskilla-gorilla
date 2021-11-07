@@ -7,6 +7,6 @@ module.exports = {
   isDevelopment: true,
   airtable: {
     baseId: 'app3avpIkkNR62AqO',
-    apiKey: 'ADD_YOUR_API_KEY_HERE',
+    apiKey: process.env.AIRTABLE_API_KEY || 'ADD_YOUR_API_KEY_HERE',
   },
 };
