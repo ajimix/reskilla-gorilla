@@ -94,7 +94,7 @@
                 job.title.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
               }}</span>
               <div class="text-right">
-                <div class="text-4xl font-bold">70%</div>
+                <div class="text-4xl font-bold">{{ job.match_percent }}%</div>
                 <div class="text-sm">match</div>
               </div>
             </div>

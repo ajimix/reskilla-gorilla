@@ -82,15 +82,19 @@ router.post('/jobs/match.json', (ctx, next) => {
       // Empty job titles are garbage in the table
       // We only care about is_future jobs
       if (job.title === undefined || job.is_future !== true) return false;
-      let matches = false;
+      let matchesCount = 0;
 
-      filterSkills.forEach((skill) => {
-        if ((job.skills + '').toLowerCase().indexOf(skill.toLowerCase()) > -1) {
-          matches = true;
-        }
+      filterSkills.forEach((filterSkill) => {
+        job.skills.forEach((jobSkill) => {
+          if (jobSkill.toLowerCase() === filterSkill.toLowerCase()) {
+            matchesCount++;
+          }
+        });
       });
 
-      return matches;
+      job.match_percent = Math.round((matchesCount * 100) / job.skills.length);
+
+      return matchesCount > 0;
     });
     return next();
   });
