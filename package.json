@@ -7,7 +7,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel",
-    "build": "parcel build",
     "dev": "concurrently --kill-others \"npm run dev-start-nodemon\" \"npm run start\"",
     "dev-start-nodemon": "NODE_ENV=development BLUEBIRD_WARNINGS=0 ./node_modules/nodemon/bin/nodemon.js"
   },
