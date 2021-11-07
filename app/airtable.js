@@ -1,7 +1,6 @@
 /**
  * Airtable module with singleton airtable.client
- * redis.connect();
- * Then it can be called like: redis.client.get(...)
+ * airtable.connect();
  */
 
 const Airtable = require('airtable');
@@ -53,7 +52,7 @@ function loadJobs() {
     })
     .then(() => {
       cachedJobs = JSON.parse(JSON.stringify(jobs));
-      cachedJobsInterval = setInterval(() => (cachedJobs = undefined), 1000 * 60 * 1); // Clean the cache in 1 minute
+      cachedJobsInterval = setInterval(() => (cachedJobs = undefined), 1000 * 60 * 5); // Clean the cache in 5 minutes
       return cachedJobs;
     })
     .catch((err) => {

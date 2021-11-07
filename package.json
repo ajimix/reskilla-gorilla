@@ -8,8 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel",
     "build": "parcel build",
-    "redis": "redis-server /usr/local/etc/redis.conf",
-    "dev": "concurrently --kill-others \"npm run redis\" \"npm run dev-start-nodemon\" \"npm run start\"",
+    "dev": "concurrently --kill-others \"npm run dev-start-nodemon\" \"npm run start\"",
     "dev-start-nodemon": "NODE_ENV=development BLUEBIRD_WARNINGS=0 ./node_modules/nodemon/bin/nodemon.js"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
@@ -24,16 +23,13 @@
   "dependencies": {
     "@koa/router": "^10.1.1",
     "airtable": "^0.11.1",
-    "ioredis": "^4.28.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-cache-control": "^2.0.0",
     "koa-conditional-get": "^3.0.0",
     "koa-etag": "^4.0.0",
     "koa-json": "^2.0.2",
-    "koa-redis": "^4.0.1",
     "koa-send": "^5.0.1",
-    "koa-session": "^6.2.0",
     "koa-www-force": "^1.0.1",
     "vue": "^3.2.21"
   },

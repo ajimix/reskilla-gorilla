@@ -1,11 +1,9 @@
 const http = require('http');
 const Koa = require('koa');
-const session = require('koa-session');
 const bodyParser = require('koa-bodyparser');
 const conditionalGet = require('koa-conditional-get');
 const etag = require('koa-etag');
 const json = require('koa-json');
-const redisStore = require('koa-redis');
 const cacheControl = require('koa-cache-control');
 const router = rootRequire('app/router.js');
 const enforceWWW = require('koa-www-force');
@@ -30,16 +28,6 @@ function start() {
 
   app
     .use(bodyParser())
-    .use(
-      session(
-        {
-          store: redisStore(),
-          key: 'reskilla:session',
-          maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
-        },
-        app
-      )
-    )
     .use(
       enforceWWW({
         www: false,
