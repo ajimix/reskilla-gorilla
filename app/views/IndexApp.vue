@@ -3,16 +3,34 @@
     <form @submit.prevent>
       <div v-if="[1, 2].indexOf(currentStep) > -1">
         <h3 class="text-5xl mt-20 text-center">1. Tell us about your current job</h3>
-        <label>
-          Current job title
-          <job-search @job-selected="jobSelected" />
-        </label>
-        <button class="bg-green-800" @click="step1Click">Give me luck!</button>
+        <div class="grid grid-cols-2 gap-16 mt-10">
+          <label>
+            <span class="pl-4 text-sm">Current job title</span>
+            <job-search @job-selected="jobSelected" />
+          </label>
+          <div>
+            <button
+              class="
+                bg-green-900
+                border-4 border-green-700 border-solid
+                rounded-full
+                py-3
+                mt-2
+                w-full
+                text-white text-2xl
+                button-extra-style
+              "
+              @click="step1Click"
+            >
+              Give me luck!
+            </button>
+          </div>
+        </div>
       </div>
 
       <div v-if="currentStep === 2">
-        <ul v-for="index in currentJob.future_demand" :key="index">
-          <li>star</li>
+        <ul>
+          <li v-for="index in currentJob.future_demand" :key="index">star</li>
         </ul>
         <div v-if="currentJob.future_demand < 3">
           You like risky things!! Your job has very high change to get automated by 2030.
@@ -22,8 +40,8 @@
         </div>
         <div v-else>You are lucky!! Your job will unlikely be automated by 2030.</div>
         <h3>2. And which skills from {{ currentJob.title }} do you master?</h3>
-        <ul v-for="skill in currentJob.skills" :key="skill">
-          <li>
+        <ul>
+          <li v-for="skill in currentJob.skills" :key="skill">
             {{ skill }}
             <fancy-check @check="skillCheck" :passthrough="skill" />
           </li>
@@ -33,8 +51,8 @@
 
       <div v-if="currentStep === 3">
         <h3>These are your future possibilities!</h3>
-        <ul v-for="job in jobMatches" :key="job.id">
-          <li>
+        <ul>
+          <li v-for="job in jobMatches" :key="job.id">
             {{ job.title }}
             <button class="bg-green-800" @click="step3Click" :data-job-id="job.id">Choose this Path</button>
           </li>

@@ -10,6 +10,16 @@
     background-color: #fafff2;
     @apply font-sans;
   }
+
+  .input-extra-style {
+    background-color: #c9dcd7;
+  }
+  .button-extra-style {
+    font-family: 'Fruktur';
+  }
+  .job-results-styled {
+    background-color: #c9dcd7;
+  }
 }
 
 @tailwind components;
