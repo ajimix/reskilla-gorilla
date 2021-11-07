@@ -52,7 +52,7 @@
       </div>
       <div class="col-span-2 font-bold text-base mt-5">Skills to Learn</div>
       <div class="col-span-2 grid grid-cols-2 gap-x-10 skills-learn-styled">
-        <span v-for="skill in job.skills" :key="skill" class="text-lg">{{ caps(skill) }}</span>
+        <span v-for="skill in missingSkills" :key="skill" class="text-lg">{{ caps(skill) }}</span>
       </div>
     </div>
     <div class="w-11/12 mx-auto mb-4 mt-5" v-if="showButton">
@@ -78,9 +78,14 @@
 
 <script>
 export default {
-  props: ['job', 'showButton', 'jobMatches'],
+  props: ['job', 'showButton', 'jobMatches', 'currentSkills'],
   data() {
     return {};
+  },
+  computed: {
+    missingSkills() {
+      return this.job.skills.filter((skill) => !this.currentSkills.has(skill));
+    },
   },
   methods: {
     caps(text) {

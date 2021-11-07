@@ -108,7 +108,13 @@
           </p>
           <ul class="grid grid-cols-2 gap-16 content-start mt-14">
             <li v-for="job in jobMatches" :key="job.id">
-              <job-card :job="job" :show-button="true" @job-proceed-click="step3Click" :job-matches="jobMatches" />
+              <job-card
+                :job="job"
+                :current-skills="currentSkills"
+                :show-button="true"
+                @job-proceed-click="step3Click"
+                :job-matches="jobMatches"
+              />
             </li>
           </ul>
         </div>
@@ -124,7 +130,7 @@
               {{ Math.round((selectedJob.salary_range * 100) / 5) }}% average salary potential. With a {{ jobMatch }}%
               match you will quickly become a great {{ caps(selectedJob.title) }} to save your future!
             </p>
-            <job-card :job="selectedJob" :job-matches="jobMatches" class="mt-5" />
+            <job-card :job="selectedJob" :current-skills="currentSkills" :job-matches="jobMatches" class="mt-5" />
           </div>
           <img
             src="../assets/images/gorilla-yay.png"
@@ -221,7 +227,7 @@ export default {
       return string;
     },
     missingSkills() {
-      return this.selectedJob.skills.filter((skill) => this.currentJob.skills.indexOf(skill) === -1);
+      return this.selectedJob.skills.filter((skill) => !this.currentSkills.has(skill));
     },
   },
   methods: {
