@@ -247,7 +247,14 @@ export default {
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((json) => (this.jobMatches = json))
+        .then((jobs) => {
+          // We remove the current job if it's in the array
+          const sameJobId = jobs.findIndex((job) => job.id === this.currentJob.id);
+          if (sameJobId > -1) {
+            jobs.splice(sameJobId, 1);
+          }
+          this.jobMatches = jobs;
+        })
         .catch(console.error);
     },
     step2Click() {
