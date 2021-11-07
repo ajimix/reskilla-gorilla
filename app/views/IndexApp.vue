@@ -59,9 +59,7 @@
         <ul class="grid grid-cols-2 gap-16 mt-14">
           <li v-for="skill in currentJob.skills" :key="skill" class="flex justify-between">
             <div class="flex justify-between w-full">
-              <span class="text-xl">{{
-                skill.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
-              }}</span>
+              <span class="text-xl">{{ caps(skill) }}</span>
               <fancy-check @check="skillCheck" :passthrough="skill" />
             </div>
           </li>
@@ -90,9 +88,7 @@
         <ul class="grid grid-cols-2 gap-16 content-start mt-14">
           <li v-for="job in jobMatches" :key="job.id" class="rounded-3xl text-white job-offer-skilled">
             <div class="flex justify-between w-full mt-5 px-5">
-              <span class="text-2xl">{{
-                job.title.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
-              }}</span>
+              <span class="text-2xl">{{ caps(job.title) }}</span>
               <div class="text-right">
                 <div class="text-4xl font-bold">{{ job.match_percent }}%</div>
                 <div class="text-sm">match</div>
@@ -143,9 +139,7 @@
               </div>
               <div class="col-span-2 font-bold text-base mt-5">Skills to Learn</div>
               <div class="col-span-2 grid grid-cols-2 gap-x-10 skills-learn-styled">
-                <span v-for="skill in job.skills" :key="skill" class="text-lg">{{
-                  skill.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
-                }}</span>
+                <span v-for="skill in job.skills" :key="skill" class="text-lg">{{ caps(skill) }}</span>
               </div>
             </div>
             <div class="w-11/12 mx-auto mb-4 mt-5">
@@ -171,11 +165,11 @@
       </div>
 
       <div v-if="currentStep === 4">
-        <h3>Welcome future {{ selectedJob.title }}!</h3>
+        <h3 class="text-5xl mt-20 text-center">Welcome future {{ selectedJob.title }}!</h3>
         <p>
-          {{ selectedJob.title }} is a great future job, with {{ selectedJob.future_demand }} chances of not getting
-          obsolete in 2030 and a {{ selectedJob.salary_range }} average salary potential. With a {{ jobMatch }}% match
-          you will quickly become a great {{ selectedJob.title }} to save your future!
+          {{ caps(selectedJob.title) }} is a great future job, with {{ selectedJob.future_demand }} chances of not
+          getting obsolete in 2030 and a {{ selectedJob.salary_range }} average salary potential. With a {{ jobMatch }}%
+          match you will quickly become a great {{ selectedJob.title }} to save your future!
         </p>
         <h3>Skills School</h3>
         <p>
@@ -227,6 +221,9 @@ export default {
     },
   },
   methods: {
+    caps(text) {
+      return text.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
+    },
     jobSelected(job) {
       this.currentJob = job;
     },
