@@ -37,7 +37,7 @@ export default {
 
       this.selectedJob = null;
 
-      fetch('http://localhost:3000/jobs/search.json', {
+      fetch('/api/jobs/search.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

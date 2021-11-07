@@ -239,7 +239,7 @@ export default {
       }
       // We load the matches on each skill, so they are ready for when the user clicks to the next step
       const data = { skills: [...this.currentSkills] };
-      fetch('http://localhost:3000/jobs/match.json', {
+      fetch('/api/jobs/match.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
