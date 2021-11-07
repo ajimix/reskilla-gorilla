@@ -95,15 +95,23 @@
           risk that some part or all of your job will be automated. Here's looking at your future job!
         </p>
         <h3 class="text-5xl mt-5">These are your future possibilities!</h3>
-        <p class="mt-5">
-          Here are a number of jobs you can transition into where your current skills will help. Click on the job you're
-          interested in and find out new skills needed. Then see how you can learn those skills over time.
-        </p>
-        <ul class="grid grid-cols-2 gap-16 content-start mt-14">
-          <li v-for="job in jobMatches" :key="job.id">
-            <job-card :job="job" :show-button="true" @job-proceed-click="step3Click" :job-matches="jobMatches" />
-          </li>
-        </ul>
+        <div v-if="jobMatches.length === 0" class="mt-5">
+          <strong>
+            Oops! Looks like we don't have any job suggestions for you. Refresh the page and try again with another job
+            or selecting less skills
+          </strong>
+        </div>
+        <div v-else>
+          <p class="mt-5">
+            Here are a number of jobs you can transition into where your current skills will help. Click on the job
+            you're interested in and find out new skills needed. Then see how you can learn those skills over time.
+          </p>
+          <ul class="grid grid-cols-2 gap-16 content-start mt-14">
+            <li v-for="job in jobMatches" :key="job.id">
+              <job-card :job="job" :show-button="true" @job-proceed-click="step3Click" :job-matches="jobMatches" />
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div v-if="currentStep === 4">
